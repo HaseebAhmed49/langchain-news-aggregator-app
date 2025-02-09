@@ -98,6 +98,12 @@ streamlit run app.py
 - Error handling for API failures.
 
 ---
+## Application View
+![Screen Shot 2025-02-09 at 15 12 41 PM](https://github.com/user-attachments/assets/1b0992e3-5f0d-4a24-a1bd-80e2909c60f5)
+![Screen Shot 2025-02-09 at 15 13 30 PM](https://github.com/user-attachments/assets/c94dad27-77b7-4da5-b350-bf4b110f4a66)
+![Screen Shot 2025-02-09 at 15 13 44 PM](https://github.com/user-attachments/assets/45be4f34-e87b-4bbb-b152-71faeed1fa5f)
+
+
 ## 📜 License
 This project is licensed under the MIT License.
 
