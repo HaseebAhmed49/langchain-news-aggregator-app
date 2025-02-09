@@ -52,5 +52,41 @@ def get_news(request: NewsRequest):
     response = requests.post(NEWS_API_URL, json=payload)
 
     if response.status_code == 200:
-        return response.json()
-    return {"error": "Failed to fetch news"}
+        news_data = response.json()
+
+        # Debugging: Log the entire response to check its structure
+        print("News API Response:", news_data)
+
+        # Ensure that we have valid articles in the response
+        if "articles" in news_data and isinstance(news_data["articles"], dict):
+            articles = news_data["articles"].get("results", [])
+        else:
+            return {"error": "No articles found or response format is invalid"}
+
+        all_articles = []
+
+        # Process each article
+        for article in articles:
+            # Check if the article is a dictionary and has the expected keys
+            if isinstance(article, dict):
+                title = article.get("title", "No title available")
+                body = article.get("body", "No content available")
+                url = article.get("url", "#")
+                image = article.get("image", None)
+
+                # Optional: Summarize the article body
+                summary = llm.invoke(f"Summarize the following article: {body}")
+
+                # Add the article with summary, URL, and image to the list
+                all_articles.append({
+                    "title": title,
+                    "summary": summary,
+                    "url": url,
+                    "image": image
+                })
+
+        # Return the list of all articles
+        return {"articles": all_articles}
+
+    else:
+        return {"error": "Failed to fetch news from API"}
